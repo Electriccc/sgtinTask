@@ -33,21 +33,26 @@ namespace ConsoleApp1
             set => productPrefix = value;
         }
 
+        // checking if valid hex string
         public bool checkIfHex(string hex) {
 
             string strHex = String.Concat("[0-9A-Fa-f]{", hex.Length, "}");
             return  Regex.IsMatch(hex, strHex);
         }
+
+        //geting partition number
         public int partitionNumber(string binary) {
 
             return Convert.ToInt32(binary.Substring(11, 3), 2);
         }
+        //converting hex string to binary string 
         public string hexToBinary(string hex) {
 
             return String.Join(String.Empty,
                     hex.Select(c => Convert.ToString(Convert.ToInt32(c.ToString(), 16), 2).PadLeft(4, '0')));
 
         }
+        //returning item reference
         public string calculateItemReference(string line) {
 
             binaryString = hexToBinary(line);
@@ -55,6 +60,8 @@ namespace ConsoleApp1
 
             int numBitsCompanyPrefix = 0;
             int numBitsItemReference = 0;
+
+            //taken from table of partition values 
             switch (partition)
             {
                 case 0:
